@@ -1,0 +1,148 @@
+{
+  "info": {
+    "name": "ShopFlow API",
+    "description": "Collection Postman couvrant tous les endpoints de l'API ShopFlow",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:8080" },
+    { "key": "accessToken", "value": "" },
+    { "key": "refreshToken", "value": "" }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [{ "key": "token", "value": "{{accessToken}}" }]
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Register Customer",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/auth/register",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\"email\":\"test@shopflow.com\",\"password\":\"Password123\",\"firstName\":\"Test\",\"lastName\":\"User\",\"role\":\"CUSTOMER\"}" }
+          },
+          "event": [{ "listen": "test", "script": { "exec": ["var json = pm.response.json(); pm.collectionVariables.set('accessToken', json.accessToken); pm.collectionVariables.set('refreshToken', json.refreshToken);"] } }]
+        },
+        {
+          "name": "Login Customer",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/auth/login",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\"email\":\"customer@shopflow.com\",\"password\":\"Password123\"}" }
+          },
+          "event": [{ "listen": "test", "script": { "exec": ["var json = pm.response.json(); pm.collectionVariables.set('accessToken', json.accessToken); pm.collectionVariables.set('refreshToken', json.refreshToken);"] } }]
+        },
+        {
+          "name": "Login Admin",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/auth/login",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\"email\":\"admin@shopflow.com\",\"password\":\"Password123\"}" }
+          },
+          "event": [{ "listen": "test", "script": { "exec": ["var json = pm.response.json(); pm.collectionVariables.set('accessToken', json.accessToken); pm.collectionVariables.set('refreshToken', json.refreshToken);"] } }]
+        },
+        {
+          "name": "Login Seller",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/auth/login",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\"email\":\"seller@shopflow.com\",\"password\":\"Password123\"}" }
+          },
+          "event": [{ "listen": "test", "script": { "exec": ["var json = pm.response.json(); pm.collectionVariables.set('accessToken', json.accessToken); pm.collectionVariables.set('refreshToken', json.refreshToken);"] } }]
+        },
+        {
+          "name": "Refresh Token",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/auth/refresh",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\"refreshToken\":\"{{refreshToken}}\"}" }
+          }
+        },
+        {
+          "name": "Logout",
+          "request": { "method": "POST", "url": "{{baseUrl}}/api/auth/logout" }
+        }
+      ]
+    },
+    {
+      "name": "Products",
+      "item": [
+        { "name": "Get All Products", "request": { "method": "GET", "url": { "raw": "{{baseUrl}}/api/products?page=0&size=12", "host": ["{{baseUrl}}"], "path": ["api","products"], "query": [{"key":"page","value":"0"},{"key":"size","value":"12"}] } } },
+        { "name": "Get Product By ID", "request": { "method": "GET", "url": "{{baseUrl}}/api/products/1" } },
+        { "name": "Search Products", "request": { "method": "GET", "url": { "raw": "{{baseUrl}}/api/products/search?q=iPhone", "host": ["{{baseUrl}}"], "path": ["api","products","search"], "query": [{"key":"q","value":"iPhone"}] } } },
+        { "name": "Top Selling", "request": { "method": "GET", "url": "{{baseUrl}}/api/products/top-selling" } },
+        { "name": "Create Product (Seller)", "request": { "method": "POST", "url": "{{baseUrl}}/api/products", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\"name\":\"Nouveau Produit\",\"description\":\"Description test\",\"price\":99.99,\"stock\":50,\"categoryIds\":[1],\"images\":[\"https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600\"]}" } } },
+        { "name": "Filter by Category", "request": { "method": "GET", "url": { "raw": "{{baseUrl}}/api/products?categoryId=1", "host": ["{{baseUrl}}"], "path": ["api","products"], "query": [{"key":"categoryId","value":"1"}] } } },
+        { "name": "Filter by Price Range", "request": { "method": "GET", "url": { "raw": "{{baseUrl}}/api/products?minPrice=100&maxPrice=1000", "host": ["{{baseUrl}}"], "path": ["api","products"], "query": [{"key":"minPrice","value":"100"},{"key":"maxPrice","value":"1000"}] } } },
+        { "name": "Promotions Only", "request": { "method": "GET", "url": { "raw": "{{baseUrl}}/api/products?promo=true", "host": ["{{baseUrl}}"], "path": ["api","products"], "query": [{"key":"promo","value":"true"}] } } }
+      ]
+    },
+    {
+      "name": "Categories",
+      "item": [
+        { "name": "Get Category Tree", "request": { "method": "GET", "url": "{{baseUrl}}/api/categories" } },
+        { "name": "Create Category (Admin)", "request": { "method": "POST", "url": "{{baseUrl}}/api/categories", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\"name\":\"Nouvelle Cat\",\"description\":\"Description\"}" } } }
+      ]
+    },
+    {
+      "name": "Cart",
+      "item": [
+        { "name": "Get Cart", "request": { "method": "GET", "url": "{{baseUrl}}/api/cart" } },
+        { "name": "Add Item to Cart", "request": { "method": "POST", "url": "{{baseUrl}}/api/cart/items", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\"productId\":1,\"variantId\":1,\"quantity\":2}" } } },
+        { "name": "Update Item Quantity", "request": { "method": "PUT", "url": "{{baseUrl}}/api/cart/items/1", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\"quantity\":3}" } } },
+        { "name": "Remove Item", "request": { "method": "DELETE", "url": "{{baseUrl}}/api/cart/items/1" } },
+        { "name": "Apply Coupon", "request": { "method": "POST", "url": "{{baseUrl}}/api/cart/coupon", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\"code\":\"WELCOME10\"}" } } },
+        { "name": "Remove Coupon", "request": { "method": "DELETE", "url": "{{baseUrl}}/api/cart/coupon" } }
+      ]
+    },
+    {
+      "name": "Orders",
+      "item": [
+        { "name": "Place Order", "request": { "method": "POST", "url": "{{baseUrl}}/api/orders", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\"addressId\":1}" } } },
+        { "name": "My Orders", "request": { "method": "GET", "url": "{{baseUrl}}/api/orders/my" } },
+        { "name": "Get Order by ID", "request": { "method": "GET", "url": "{{baseUrl}}/api/orders/1" } },
+        { "name": "All Orders (Admin)", "request": { "method": "GET", "url": "{{baseUrl}}/api/orders" } },
+        { "name": "Update Status (Seller/Admin)", "request": { "method": "PUT", "url": "{{baseUrl}}/api/orders/1/status", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\"status\":\"PAID\"}" } } },
+        { "name": "Cancel Order", "request": { "method": "PUT", "url": "{{baseUrl}}/api/orders/1/cancel" } }
+      ]
+    },
+    {
+      "name": "Reviews",
+      "item": [
+        { "name": "Post Review (Customer)", "request": { "method": "POST", "url": "{{baseUrl}}/api/reviews", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\"productId\":2,\"rating\":5,\"comment\":\"Excellent produit!\"}" } } },
+        { "name": "Get Product Reviews", "request": { "method": "GET", "url": "{{baseUrl}}/api/reviews/product/1" } },
+        { "name": "Approve Review (Admin)", "request": { "method": "PUT", "url": "{{baseUrl}}/api/reviews/1/approve" } }
+      ]
+    },
+    {
+      "name": "Coupons",
+      "item": [
+        { "name": "Get All Coupons (Admin)", "request": { "method": "GET", "url": "{{baseUrl}}/api/coupons" } },
+        { "name": "Validate Coupon", "request": { "method": "GET", "url": "{{baseUrl}}/api/coupons/validate/WELCOME10" } },
+        { "name": "Create Coupon (Admin)", "request": { "method": "POST", "url": "{{baseUrl}}/api/coupons", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\"code\":\"TEST20\",\"type\":\"PERCENT\",\"value\":20,\"maxUsages\":100}" } } }
+      ]
+    },
+    {
+      "name": "Addresses",
+      "item": [
+        { "name": "Get My Addresses", "request": { "method": "GET", "url": "{{baseUrl}}/api/addresses" } },
+        { "name": "Add Address", "request": { "method": "POST", "url": "{{baseUrl}}/api/addresses", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\"street\":\"10 Rue Test\",\"city\":\"Tunis\",\"zipCode\":\"1000\",\"country\":\"Tunisie\",\"primary\":false}" } } }
+      ]
+    },
+    {
+      "name": "Dashboard",
+      "item": [
+        { "name": "Admin Dashboard", "request": { "method": "GET", "url": "{{baseUrl}}/api/dashboard/admin" } },
+        { "name": "Seller Dashboard", "request": { "method": "GET", "url": "{{baseUrl}}/api/dashboard/seller" } }
+      ]
+    }
+  ]
+}
