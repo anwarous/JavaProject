@@ -29,24 +29,23 @@ export default function HomePage() {
   return (
     <div>
       {/* Hero Banner */}
-      <section className="relative bg-gradient-to-br from-primary-600 via-primary-700 to-primary-900 text-white overflow-hidden">
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4wNSI+PHBhdGggZD0iTTM2IDM0djItSDI0di0yaDEyek0zNiAyNHYySDI0di0yaDEyeiIvPjwvZz48L2c+PC9zdmc+')] opacity-30"></div>
-        <div className="max-w-7xl mx-auto px-4 py-20 md:py-28 relative z-10">
-          <div className="max-w-2xl">
-            <span className="inline-flex items-center gap-1.5 bg-white/10 backdrop-blur-sm text-sm px-3 py-1 rounded-full mb-6">
-              <Zap className="w-4 h-4 text-amber-300" /> Soldes d&apos;été — Jusqu&apos;à -25%
+      <section className="relative bg-white border-b border-[#ddd]">
+        <div className="max-w-7xl mx-auto px-2 sm:px-4 md:px-6 lg:px-8 py-12 flex flex-col md:flex-row items-center gap-10">
+          <div className="flex-1 max-w-xl">
+            <span className="inline-flex items-center gap-1.5 bg-[#febd69]/20 text-[#b12704] text-xs px-3 py-1 rounded-sm mb-4 font-bold">
+              <Zap className="w-4 h-4 text-[#b12704]" /> Soldes d&apos;été — Jusqu&apos;à -25%
             </span>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-              Découvrez le shopping<br />de <span className="text-amber-300">demain</span>
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-black mb-4 leading-tight text-[#131921]">
+              Découvrez le shopping<br />de <span className="text-[#febd69]">demain</span>
             </h1>
-            <p className="text-lg text-primary-100 mb-8 max-w-lg">
+            <p className="text-base text-[#232f3e] mb-6 max-w-lg">
               ShopFlow réunit les meilleurs vendeurs et produits. Tech, mode, maison — tout ce dont vous avez besoin.
             </p>
-            <div className="flex gap-4">
-              <Link href="/products" className="px-6 py-3 bg-white text-primary-700 font-semibold rounded-lg hover:bg-primary-50 transition">
+            <div className="flex gap-3">
+              <Link href="/products" className="px-6 py-2 bg-[#febd69] text-[#131921] font-bold rounded-sm shadow hover:bg-[#f7ca6c] transition">
                 Explorer le catalogue
               </Link>
-              <Link href="/auth" className="px-6 py-3 border-2 border-white/30 text-white font-semibold rounded-lg hover:bg-white/10 transition">
+              <Link href="/auth" className="px-6 py-2 border border-[#febd69] text-[#131921] font-bold rounded-sm hover:bg-[#f7ca6c]/30 transition">
                 Créer un compte
               </Link>
             </div>
@@ -55,16 +54,16 @@ export default function HomePage() {
       </section>
 
       {/* Trust Badges */}
-      <section className="bg-white border-b">
-        <div className="max-w-7xl mx-auto px-4 py-5 grid grid-cols-2 md:grid-cols-4 gap-4">
+      <section className="bg-white border-b border-[#ddd]">
+        <div className="max-w-7xl mx-auto px-2 sm:px-4 md:px-6 lg:px-8 py-4 grid grid-cols-2 md:grid-cols-4 gap-4">
           {[
             { icon: Truck, text: 'Livraison gratuite dès 100 DT' },
             { icon: Shield, text: 'Paiement 100% sécurisé' },
             { icon: Tag, text: 'Codes promo exclusifs' },
             { icon: Zap, text: 'Support client 24/7' },
           ].map((item, i) => (
-            <div key={i} className="flex items-center gap-3 text-sm text-gray-600">
-              <item.icon className="w-5 h-5 text-primary-500 flex-shrink-0" />
+            <div key={i} className="flex items-center gap-2 text-xs text-[#232f3e] bg-[#f7f7f7] px-3 py-2 rounded-sm border border-[#eee]">
+              <item.icon className="w-5 h-5 text-[#febd69] flex-shrink-0" />
               <span>{item.text}</span>
             </div>
           ))}
@@ -72,10 +71,10 @@ export default function HomePage() {
       </section>
 
       {/* Categories */}
-      <section className="max-w-7xl mx-auto px-4 py-14">
-        <div className="flex items-center justify-between mb-8">
-          <h2 className="text-2xl font-bold text-gray-900">Catégories</h2>
-          <Link href="/products" className="text-sm text-primary-600 hover:text-primary-700 flex items-center gap-1">
+      <section className="max-w-7xl mx-auto px-2 sm:px-4 md:px-6 lg:px-8 py-10">
+        <div className="flex items-center justify-between mb-6">
+          <h2 className="text-xl font-bold text-[#131921]">Catégories</h2>
+          <Link href="/products" className="text-xs text-[#007185] hover:underline flex items-center gap-1">
             Voir tout <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
